@@ -1,17 +1,19 @@
+import { apiHost } from "../constants";
+
 async function getParcels() {
-    const response = await fetch("http://localhost:8000/parcels");
+    const response = await fetch(`${apiHost}/parcels`);
     checkResponse(response);
     return await response.json();
 }
 
 async function getParcel(id) {
-    const response = await fetch(`http://localhost:8000/parcel/${id}`);
+    const response = await fetch(`${apiHost}/parcel/${id}`);
     checkResponse(response);
     return await response.json();
 }
 
 async function createParcel(data) {
-    const response = await fetch(`http://localhost:8000/parcel`, {
+    const response = await fetch(`${apiHost}/parcel`, {
         method: "POST",
         headers: new Headers({ "content-type": "application/json" }),
         body: JSON.stringify(data)
@@ -21,7 +23,7 @@ async function createParcel(data) {
 }
 
 async function updateParcel(data) {
-    const response = await fetch(`http://localhost:8000/parcel/${data._id}`, {
+    const response = await fetch(`${apiHost}/parcel/${data._id}`, {
         method: "PUT",
         headers: new Headers({ "content-type": "application/json" }),
         body: JSON.stringify(data)
@@ -31,7 +33,7 @@ async function updateParcel(data) {
 }
 
 async function addTracking(parcelId, data) {
-    const response = await fetch(`http://localhost:8000/parcel/${parcelId}/tracking`, {
+    const response = await fetch(`${apiHost}/parcel/${parcelId}/tracking`, {
         method: "POST",
         headers: new Headers({ "content-type": "application/json" }),
         body: JSON.stringify(data)

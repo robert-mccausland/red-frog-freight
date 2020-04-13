@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+    web:
+        build: 
+            context: ./web
+            args:
+                API_HOST: http://docker:8081
+        ports:
+            - "8080:8080"
+    api:
+        build: ./api
+        environment:
+            MONGO_URL: mongodb://mongo:27017
+            PORT: "8080"
+        ports:
+             - "8081:8080"
+    mongo:
+        image: mongo:4.2

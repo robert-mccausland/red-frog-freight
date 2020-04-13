@@ -1,13 +1,13 @@
-
 const path = require('path')
+const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
-module.exports = {
+module.exports = (env) => ({
     entry: './main.js',
     output: {
         path: path.resolve(__dirname, './dist'),
         publicPath: '/dist/',
-        filename: 'build.js'
+        filename: 'app.js'
     },
     module: {
         rules: [
@@ -27,7 +27,7 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
-                
+
             }
         ]
     },
@@ -36,14 +36,10 @@ module.exports = {
             'vue$': 'vue/dist/vue.esm.js'
         }
     },
-    devServer: {
-        historyApiFallback: true,
-        compress: true,
-        port: 9000
-    },
     plugins: [
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new webpack.DefinePlugin({
+            __API_HOST__: JSON.stringify(env.api_host || "http://localhost:8000")
+        })
     ],
-    devtool: '#eval-source-map',
-    mode: 'development'
-}
+});

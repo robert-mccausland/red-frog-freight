@@ -1,3 +1,4 @@
+const ObjectId = require("bson").ObjectId;
 const parcelData = require("./parcelData");
 
 module.exports = app => {
@@ -7,12 +8,18 @@ module.exports = app => {
     });
 
     app.get("/parcel/:id", async (req, res) => {
+        if (!ObjectId.isValid(req.params.id)) {
+            res.status(404).send();
+            return;
+        }
+
         const parcel = await parcelData.getParcel(req.params.id);
+
         if (parcel) {
             res.send(parcel);
         }
         else {
-            res.status(404).send()
+            res.status(404).send();
         }
     });
 
@@ -67,6 +74,11 @@ module.exports = app => {
 
     app.post("/parcel/:id/tracking", async (req, res) => {
         try {
+            if (!ObjectId.isValid(req.params.id)) {
+                res.status(404).send();
+                return;
+            }
+
             if (!req.body) {
                 res.status(400).send();
                 return;

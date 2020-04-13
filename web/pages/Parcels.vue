@@ -24,6 +24,9 @@
     <div v-if="isLoading" class="loading">
       <md-progress-spinner md-mode="indeterminate"></md-progress-spinner>
     </div>
+    <div v-if="loadingFailed">
+      <span>Unable to load parcels</span>
+    </div>
     <md-button class="md-primary" to="/parcel">Add Parcel</md-button>
   </div>
 </template>
@@ -37,6 +40,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      loadingFailed: false,
       parcels: []
     };
   },
@@ -45,8 +49,18 @@ export default {
   },
   methods: {
     async fetch() {
+      try{
       this.isLoading = true;
       this.parcels = await getParcels();
+      }
+      catch(err)
+      {
+        this.loadingFailed = true;
+        console.log(
+          "TODO: Add error notifications... btw there was an error",
+          err
+        );
+      }
       this.isLoading = false;
     },
     formatDate

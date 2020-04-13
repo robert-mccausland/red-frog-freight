@@ -1,7 +1,7 @@
 const MongoClient = require("mongodb");
 const ObjectId = require("bson").ObjectId;
 
-const url = process.env.MONGO_UYL || "mongodb://localhost:27017"
+const url = process.env.MONGO_URL || "mongodb://localhost:27017"
 const dbName = process.env.DB_NAME || "red_frog_freight"
 let client;
 let collection;
@@ -14,13 +14,13 @@ async function connect() {
 
 async function disconnect() {
     collection = undefined;
-    await client.disconnect();
+    await client.close();
 }
 
 async function createParcel(parcel) {
     const uploadEvent = {
         code: "100",
-        description: "Uploaded",
+        description: "Created",
         timestamp: new Date(),
         _id: new ObjectId()
     };

@@ -1,0 +1,30 @@
+# create container to build the app in
+FROM node:12-alpine as build
+
+# make the 'build' folder the current working directory
+WORKDIR /build
+
+# copy project files and folders to the current working directory
+COPY . .
+
+# install project dependencies
+RUN npm ci --production
+
+# create runtime container without the build dependencies
+FROM node:12-alpine as runtime
+
+# make the 'app' folder the current working directory
+WORKDIR /app
+
+# copy across source files
+COPY --from=build /build/node_modules node_modules
+COPY --from=build /build/src src
+COPY --from=build /build/index.js ./
+
+# set user to node user
+USER node
+
+# run service over port 8000
+ENV PORT 8080
+EXPOSE 8080
+CMD [ "node", "index.js" ]
