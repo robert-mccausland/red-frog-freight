@@ -1,14 +1,15 @@
-import moment from "moment";
+import { differenceInDays, formatRelative, format } from "date-fns"
 
-function formatDate(date) {
-    return moment(date).calendar(null, {
-        lastDay: "[Yesterday at] LT",
-        sameDay: "[Today at] LT",
-        nextDay: "[Tomorrow at] LT",
-        lastWeek: "[last] dddd [at] LT",
-        nextWeek: "dddd [at] LT",
-        sameElse: "LLL"
-    });
+function formatDate(value) {
+    const date = new Date(value);
+    const baseDate = new Date();
+    return Math.abs(differenceInDays(date, baseDate)) < 6
+        ? capitalizeFirst(formatRelative(date, baseDate))
+        : format(date, `PPp`);
+}
+
+function capitalizeFirst(value) {
+    return value[0].toUpperCase() + value.substr(1);
 }
 
 export { formatDate };

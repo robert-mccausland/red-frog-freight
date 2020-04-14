@@ -90,6 +90,12 @@
 </template>
 
 <script>
+import Vue from "vue";
+import { MdCard, MdField, MdDialog } from "vue-material/dist/components";
+Vue.use(MdCard);
+Vue.use(MdField);
+Vue.use(MdDialog);
+
 import {
   getParcel,
   updateParcel,

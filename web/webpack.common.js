@@ -39,7 +39,7 @@ module.exports = (env) => ({
     plugins: [
         new VueLoaderPlugin(),
         new webpack.DefinePlugin({
-            __API_HOST__: JSON.stringify(env.api_host || "http://localhost:8000")
+            __API_HOST__: JSON.stringify((env && env.api_host) || "http://localhost:8000")
         })
     ],
 });

@@ -32,6 +32,11 @@
 </template>
 
 <script>
+import Vue from "vue";
+import { MdTable, MdProgress } from "vue-material/dist/components";
+Vue.use(MdTable);
+Vue.use(MdProgress);
+
 import { getParcels } from "../src/data/parcels";
 import { formatDate } from "../src/utilities";
 
@@ -49,12 +54,10 @@ export default {
   },
   methods: {
     async fetch() {
-      try{
-      this.isLoading = true;
-      this.parcels = await getParcels();
-      }
-      catch(err)
-      {
+      try {
+        this.isLoading = true;
+        this.parcels = await getParcels();
+      } catch (err) {
         this.loadingFailed = true;
         console.log(
           "TODO: Add error notifications... btw there was an error",

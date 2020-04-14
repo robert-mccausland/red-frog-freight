@@ -24,8 +24,26 @@
     </md-app>
   </div>
 </template>
-
+ 
 <script>
+import Vue from "vue";
+import {
+  MdApp,
+  MdToolbar,
+  MdDrawer,
+  MdButton,
+  MdList,
+  MdIcon,
+  MdContent
+} from "vue-material/dist/components";
+Vue.use(MdApp);
+Vue.use(MdToolbar);
+Vue.use(MdDrawer);
+Vue.use(MdButton);
+Vue.use(MdList);
+Vue.use(MdIcon);
+Vue.use(MdContent);
+
 export default {
   name: "app",
   created: function() {
