@@ -4,7 +4,7 @@ var cors = require('cors')
 
 const parcelHandler = require("./src/parcelHandler");
 const parcelData = require("./src/parcelData");
-const port = process.env.PORT || "8000";
+const port = process.env.PORT || "8080";
 let server;
 let stopping = false;
 

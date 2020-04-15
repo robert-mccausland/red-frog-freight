@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = (env) => {
-    const apiHost = (env && env.api_host) || "http://localhost:8000";
+    const apiHost = (env && env.api_host) || "http://localhost:8080";
     return {
         entry: './main.js',
         output: {
