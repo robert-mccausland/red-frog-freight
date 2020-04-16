@@ -7,7 +7,9 @@ let client;
 let collection;
 
 async function connect() {
-    client = await new MongoClient(url, { useUnifiedTopology: true });
+    client = await new MongoClient(url, {
+        useUnifiedTopology: true
+    });
     await client.connect();
     collection = client.db(dbName).collection("parcels");
 }
@@ -32,30 +34,56 @@ async function createParcel(parcel) {
 }
 
 async function updateParcel(id, parcel) {
-    const result = await collection.findOneAndUpdate({ _id: ObjectId(id) }, { $set: parcel }, { returnOriginal: false });
+    const result = await collection.findOneAndUpdate({
+        _id: ObjectId(id)
+    }, {
+        $set: parcel
+    }, {
+        returnOriginal: false
+    });
     return result.value;
 }
 
 async function addTrackingEvent(parcelId, trackingEvent) {
     trackingEvent.timestamp = new Date();
     trackingEvent._id = new ObjectId();
-    const result = await collection.findOneAndUpdate({ _id: ObjectId(parcelId) }, {
+    const result = await collection.findOneAndUpdate({
+        _id: ObjectId(parcelId)
+    }, {
         $set: {
             latestTrackingEvent: trackingEvent
         },
-        $push: { trackingEvents: trackingEvent }
-    }, { returnOriginal: false });
+        $push: {
+            trackingEvents: trackingEvent
+        }
+    }, {
+        returnOriginal: false
+    });
     return result.value;
 }
 
 async function getParcel(id) {
-    return await collection.findOne({ _id: new ObjectId(id) });
+    return await collection.findOne({
+        _id: new ObjectId(id)
+    });
 }
 
 async function getParcels() {
-    return await collection.find({}).toArray();
+    return await collection.find({}).project({
+        consignmentNumber: 1,
+        parcelNumber: 1,
+        serviceCode: 1,
+        latestTrackingEvent: 1,
+        createdAt: 1
+    }).toArray();
 }
 
 module.exports = {
-    connect, disconnect, createParcel, updateParcel, addTrackingEvent, getParcel, getParcels
+    connect,
+    disconnect,
+    createParcel,
+    updateParcel,
+    addTrackingEvent,
+    getParcel,
+    getParcels
 };
