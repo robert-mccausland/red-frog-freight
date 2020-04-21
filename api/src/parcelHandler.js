@@ -150,11 +150,10 @@ module.exports = app => {
             }
 
             const {
-                code,
-                description
+                code
             } = req.body;
-            if (!code || !description) {
-                res.status(404).send();
+            if (!code) {
+                res.status(400).send();
                 return;
             }
 

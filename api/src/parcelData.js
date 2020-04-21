@@ -20,15 +20,9 @@ async function disconnect() {
 }
 
 async function createParcel(parcel) {
-    const uploadEvent = {
-        code: "100",
-        description: "Created",
-        timestamp: new Date(),
-        _id: new ObjectId()
-    };
     parcel.createdAt = new Date();
-    parcel.latestTrackingEvent = uploadEvent;
-    parcel.trackingEvents = [uploadEvent];
+    parcel.latestTrackingEvent = {};
+    parcel.trackingEvents = [];
     await collection.insertOne(parcel);
     return parcel;
 }

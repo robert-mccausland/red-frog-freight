@@ -41,7 +41,7 @@
         <md-table-cell class="parcels-table-cell">{{formatDate(parcel.createdAt)}}</md-table-cell>
         <md-table-cell
           class="parcels-table-cell"
-        >{{parcel.latestTrackingEvent.description}} ({{parcel.latestTrackingEvent.code}})</md-table-cell>
+        >{{formatTrackingEvent(parcel.latestTrackingEvent)}}</md-table-cell>
         <md-table-cell
           class="parcels-table-cell"
         >{{formatDate(parcel.latestTrackingEvent.timestamp)}}</md-table-cell>
@@ -75,7 +75,7 @@ Vue.use(MdEmptyState);
 Vue.use(MdMenu);
 
 import { getParcels } from "../src/data/parcels";
-import { formatDate } from "../src/utilities";
+import { formatDate, formatTrackingEvent } from "../src/utilities";
 
 export default {
   name: "parcels",
@@ -112,6 +112,7 @@ export default {
       this.isEmpty = this.parcels.length === 0;
       this.isLoading = false;
     },
+    formatTrackingEvent,
     formatDate
   }
 };
