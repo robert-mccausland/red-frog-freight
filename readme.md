@@ -38,6 +38,8 @@ All data access should be abstracted to a module defined in the `src/data` folde
 
 TBD.
 
+plan - aswell as the end to end test we should unit test the handlers to check for error handling and stuff.
+
 ## API
 
 The API is a simple express application that talks to a Mongo DB database, running `npm install` then `npm start` should be enough to get you started. There are some environment variables that the application reads, `MONGO_URL` and `DB_NAME`, which specify the url and database name of the mongodb server to connect to. They will default to `localhost` and `red_frog_freight` respectively, so if you have a local install of Mongo DB running it should work fine. Also the `PORT` environment variable will determine which port the app listens too, which by default is `8080`.
@@ -49,3 +51,5 @@ The API is very simple, it just has a `parcelHandler.js` module which take the r
 ### Tests
 
 TBD.
+
+plan - we should use cypress to test the UI, which should include an end to end test as well as a unit test for each page component with a mock data layer to test error handling and stuff.

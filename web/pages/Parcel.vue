@@ -12,6 +12,17 @@
           <span class="md-title">Details</span>
         </md-card-header>
         <md-card-content>
+          <div class="md-layout">
+            <div class="md-layout-item">
+              <label class="md-caption">Parcel ID</label>
+              <div class="md-body-1">{{parcel._id || "-"}}</div>
+            </div>
+            <div class="md-layout-item">
+              <label class="md-caption">Created At</label>
+              <div class="parcel-created-at md-body-1">{{parcel.createdAt ? formatDate(parcel.createdAt) : "-"}}</div>
+            </div>
+          </div>
+          <md-divider class="parcel-divider"></md-divider>
           <md-field>
             <label>Consignment Number</label>
             <md-input v-model="parcel.consignmentNumber"></md-input>
@@ -65,6 +76,9 @@
         </md-card>
       </div>
     </div>
+
+    <md-button class="md-primary" to="/parcels">Back</md-button>
+
     <md-dialog :md-active.sync="showAddTrackingEventDialog">
       <md-dialog-title>Add Tracking Event</md-dialog-title>
       <div class="card">
@@ -91,10 +105,16 @@
 
 <script>
 import Vue from "vue";
-import { MdCard, MdField, MdDialog } from "vue-material/dist/components";
+import {
+  MdCard,
+  MdField,
+  MdDialog,
+  MdDivider
+} from "vue-material/dist/components";
 Vue.use(MdCard);
 Vue.use(MdField);
 Vue.use(MdDialog);
+Vue.use(MdDivider);
 
 import {
   getParcel,
@@ -188,8 +208,16 @@ export default {
 }
 .card {
   margin: 1em;
+  max-width: 50em;
 }
 .tracking-table {
   padding: 1em;
+}
+.parcel-divider {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+.parcel-created-at {
+  white-space: nowrap;
 }
 </style>

@@ -68,14 +68,18 @@ async function getParcel(id) {
     });
 }
 
-async function getParcels() {
-    return await collection.find({}).project({
+async function getParcels(ordering, limit, page) {
+    const cursor = collection.find().project({
         consignmentNumber: 1,
         parcelNumber: 1,
         serviceCode: 1,
         latestTrackingEvent: 1,
         createdAt: 1
-    }).toArray();
+    }).limit(limit).skip((page - 1) * limit);
+    if (ordering.field) {
+        cursor.sort(ordering.field, ordering.dir == 'asc' ? 1 : -1);
+    }
+    return await cursor.toArray();
 }
 
 module.exports = {

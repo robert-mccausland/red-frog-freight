@@ -8,7 +8,7 @@
         <Navigation></Navigation>
       </md-app-drawer>
       <md-app-content>
-        <router-view></router-view>
+        <router-view class="rff-content"></router-view>
       </md-app-content>
     </md-app>
   </div>
@@ -42,4 +42,7 @@ export default {
 </script>
 
 <style scoped>
+.rff-content {
+  overflow: hidden;
+}
 </style>
